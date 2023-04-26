@@ -24,6 +24,7 @@ cmap = colors.ListedColormap(colors_list)
 bounds = [0,1,2,3,4]
 norm = colors.BoundaryNorm(bounds, cmap.N)
 
+
 def iterate(X):
     """Iterate the forest according to the forest-fire rules."""
 
@@ -43,13 +44,14 @@ def iterate(X):
                     # only catch fire with a reduced probability:
                     if abs(dx) == abs(dy) and np.random.random() < 0.573:
                         continue
-                    if X[iy+dy,ix+dx] == FIRE:
-                        X1[iy,ix] = FIRE
+                    if X[iy+dy, ix+dx] == FIRE:
+                        X1[iy, ix] = FIRE
                         break
                 else:
                     if np.random.random() <= f:
-                        X1[iy,ix] = FIRE
+                        X1[iy, ix] = FIRE
     return X1
+
 
 # The initial fraction of the forest occupied by trees.
 forest_fraction = 0.2
@@ -60,7 +62,7 @@ p, f = 0.05, 0.0001
 
 nx, ny = 100, 100
 # Initialize the forest grid.
-X  = np.zeros((ny, nx))
+X = np.zeros((ny, nx))
 X[1:ny-1, 1:nx-1] = np.random.randint(0, 2, size=(ny-2, nx-2))
 X[1:ny-1, 1:nx-1] = np.random.random(size=(ny-2, nx-2)) < forest_fraction
 # Water
@@ -72,12 +74,16 @@ X[10:90, 80:85] = WATER
 fig = plt.figure(figsize=(25/3, 6.25))
 ax = fig.add_subplot(111)
 ax.set_axis_off()
-im = ax.imshow(X, cmap=cmap, norm=norm)#, interpolation='nearest')
+im = ax.imshow(X, cmap=cmap, norm=norm)  # , interpolation='nearest')
 
 # The animation function: called to produce a frame for each generation.
+
+
 def animate(i):
     im.set_data(animate.X)
     animate.X = iterate(animate.X)
+
+
 # Bind our grid to the identifier X in the animate function's namespace.
 animate.X = X
 
