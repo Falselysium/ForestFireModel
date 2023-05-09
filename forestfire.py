@@ -5,8 +5,6 @@ from matplotlib import colors
 # Generate a random river path using Perlin noise
 from noise import pnoise2
 
-# http://web.archive.org/web/20230212225125/https://triplebyte.com/blog/how-fire-spreads-mathematical-models-and-simulators
-
 # Displacements from a cell to its eight nearest neighbours (y, x)
 neighbourhood = (
     (-1, -1), (-1, 0), (-1, 1),
